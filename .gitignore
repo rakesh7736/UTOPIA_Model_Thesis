@@ -1,0 +1,5 @@
+# Ignore all images and outputs in these folders
+overlay_plots/*
+!overlay_plots/.keep
+
+

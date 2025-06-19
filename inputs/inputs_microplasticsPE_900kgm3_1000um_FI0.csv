@@ -1,0 +1,6 @@
+Name,form,composition,shape,density_kg_m3,dimensionX_um,dimensionY_um,dimensionZ_um
+mp1,freeMP,PE,sphere,900,0.05,0.05,0.05
+mp2,freeMP,PE,sphere,900,0.5,0.5,0.5
+mp3,freeMP,PE,sphere,900,5.0,5.0,5.0
+mp4,freeMP,PE,sphere,900,50.0,50.0,50.0
+mp5,freeMP,PE,sphere,900,500.0,500.0,500.0
