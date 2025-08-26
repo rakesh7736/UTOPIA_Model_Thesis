@@ -1,91 +1,80 @@
-﻿# UTOPIA_model
+﻿# UTOPIA Model – Validation Using Observed Microplastic Size Distributions
 
-A multimedia unit world open-source model for microplastics 
+This repository contains the open-source **UTOPIA model** for simulating the environmental fate of microplastics, along with custom scripts and validation analyses developed as part of my Master's thesis at Stockholm University.
 
-The model comprises 17 compartments and tracks the fate of multiple sizes (5 size bins covering the a size range from nano- to milimeters in size) and four different speciation states of microplastic though solving an overall mass balance that is defined by a system of coupled first-order differential equations.  The masses, m (g), and or particle number (N) of the different microplastic forms and sizes are obtained as the steady-state solutions of the mass balance equations for all compartments.
+---
 
-![image](https://github.com/microplastics-cluster/UTOPIA_model/blob/main/UTOPIA_building_blocks.png)
+## 🎓 Master's Thesis
 
-![image](https://user-images.githubusercontent.com/58487662/188824142-892a10e0-ec4c-42af-adfc-a6a626a35808.png)
+**Title:** Evaluation of the UTOPIA Model for Simulating the Size Distribution of Microplastics in the Environment  
+**Author:** Rakesh Krishnappan  
+**Program:** MSc Environmental Science – Environmental Toxicology & Chemistry  
+**University:** Stockholm University  
+**Supervisors:** Prof. Matthew MacLeod, Prado Domercq
 
-The UTOPIA model is being developed based on experiences and knowledge acquired from a previous project ECO48 project Nano2Plast: Extending nanoparticle models to open source models of the fate and transport of plastic in aquatic systems. Therefore, the aquatiac processess included in The Full Multi are used within this project. Further processess of transport between non-aquatic compartments such as sea spray aerosol resuspension to air, runoff of plastics from land, dry and wet depossition of plastics into surface compartments, have been included in UTOPIA (and currently being reviwed for parametrization).
+---
 
-![image](https://github.com/microplastics-cluster/UTOPIA_model/blob/main/UTOPIA_processes.png)
+## 🧪 Methods
 
-The processess marked in red are not yet included in UTOPIA.
+The UTOPIA model was used in steady-state mode to simulate the size distribution of microplastics (MPs) across various environmental compartments. The goal was to validate model predictions against observed MP size distributions reported in published datasets.
 
-### Select input parameters
-Go to the file script_UTOPIA_user.py or to the Jupyter Notebook UTOPIA_notebook_Nov2024.ipynb and follow the instructions given in the code. Currently it is possible to modify:
+### 1. Model Setup
 
-  1- Microplastics properties:
+- **Model**: UTOPIA (Uncertainty-assessment Tool for Organic Pollutants In Aquatic environments)
+- **Mode**: Steady-state
+- **Execution**: Python-based scripts with parameter sweeps
+- **Compartments simulated**: Surface water, sediment, deep water, coastal water, freshwater, and soil
 
-  - MPdensity_kg_m3 
-  - MP_composition  (Has to match the defined density)
+### 2. Parameters Explored
 
-  Compartment properties:
+| Parameter                   | Description                                              | Range / Options                     |
+|----------------------------|----------------------------------------------------------|-------------------------------------|
+| **Plastic Density**        | Represents different polymer types                       | 900 – 1500 kg/m³                    |
+| **Fragmentation Index (FI)**| Controls fragmentation style (0 = erosive, 1 = sequential)| 0.3 – 1.0                           |
+| **Fragmentation Timescale**| Time for fragmentation to occur                          | 3.65 – 3650 days                    |
+| **Degradation Half-life**  | Time for plastic degradation                             | 660 – 66,000 days                   |
+| **Form Type**              | Surface characteristics of MPs                           | freeMP, heterMP, biofMP, heterBiofMP |
 
-  To do so one should copy the inputs_compartments.csv file and modify its values without changing the format of the file. Once a new file is generated this can be saved with a new name and the new name should be provided for the comp_impFile_name variable of the script_UTOPIA_user.py
+### 3. Validation Datasets
 
-  2- Plastic weathering properties:
+Observed microplastic size distributions were extracted from the following studies:
 
-  - Select a fragmentation style by choosing a FI value that goes from 0 to 1 to select a scenario between Erosive (FI=0) and sequential (FI=1) fragmentation as described in the code.
-  - Type the fragmentation timescale (given in number of days) in: t_frag_gen_FreeSurfaceWater (default values= 36.5)
-  - Type the disintegration timescale (given in number of days) in: t_half_deg_free (default value=66000)
-  - Fractors that infuence fragmentation and disintegration according to the environmental compartment and aggregation state are defined with default values as listed:
-  - heter_deg_factor = 10
-  - biof_deg_factor = 1 / 2
-  - factor_deepWater_soilSurface = 10
-  - factor_sediment = 100
-  - biof_frag_factor = 2
-  - heter_frag_factor = 100
+- Enders et al. (2015) – Atlantic Ocean Surface
+- Cai et al. (2018) – South China Sea
+- Imhof et al. (2012) – River sediments
+- Isobe et al. (2014) – Northwest Pacific
+- Bergmann et al. (2017) – Arctic Snow
+etc
+### 4. Validation Approach
 
-  3- Emission scenario:
-  describe the porperties of the emitted plastic particles (particle size and form) and the recieving compartment/s and its flow of emission/s
+Model performance was evaluated by comparing simulated size distributions to observed ones using:
 
-  - size_bin: choose a size fraction from the size_dict dictionary (if chosen the default settings: a= 0.5 um, b= 5 um, c= 50 um, d= 500 um, e= 5000 um)
-  - MP_form: Choose from MPforms_list (freeMP,heterMP,biofMP and heterBiofMP)
-  - If emission are targeted to a single compartment the user should define:
-    - input_flow_g_s
-    - emiss_comp
-  - If there are emissions into several compartments the user should add the corresponding input flows per compartment in the dictionary q_mass_g_s_dict in the script_UTOPIA_user.py file or following the Jupyter Notebook instructions. Note that if this second option is chossen the user should double check that the inputs above match the enission scenario  
- targeted.
+- **Root Mean Square Error (RMSE)**
+- **Euclidean Distance**
+- **Coefficient of Determination (R²)**
 
+Custom functions were written to automate dataset alignment, fitting, and performance metric calculation.
 
-![image](https://user-images.githubusercontent.com/58487662/186609599-c75bb341-45f4-4bf4-a055-fb332aff3756.png)
+---
 
+## 📁 Repository Structure
 
-### Plot and save results
+| Folder / File            | Description |
+|-----------------------  -|-------------|
+| `UTOPIA_notebook_Nov2024/| UTOPIA model (unmodified core model) |
+| `thesis_model.ipynb`     | ✅ Main notebook that runs the full validation workflow |
+| `overlay_plots/`         | Folder for output plots (excluded from GitHub) |
+| `README.md`              | This file |
 
-  -Mass and particle number concentrations
-  -Mass and numbers distribution as fraction of the total mass or total number
-  -Exposure metrics (Overall persistence, characteristic travel distance, transfer efficiency)
-  -Emission fractions
+## 🚀 How to Run
 
-
-## Instalation guidelines
-
-### Getting started for Windows
-
-Download the repository to your computer by clicking on the green CODE button on the rigth of the repository screen.
-
-### Create, activate, and download dependencies with a virtual environment using venv
-
-### Create a virtual environment named 'venv'
+1. **Clone this repository**:
 ```bash
-python -m venv venv
-```
-### Activate the virtual environment on Windows
-```bash
-venv\Scripts\activate
-```
-### Install requirements
-```bash
+git clone https://github.com/rakesh7736/UTOPIA_Model_Thesis.git
+
+cd UTOPIA_Model_Thesis
+
 pip install -r requirements.txt
-```
-### Run server 
-```bash
-python script_UTOPIA_user.py
-```
 
-##### Acknowledgements
-Thanks to the European Chemical Industry Council Long-Range Research Initiative (Cefic-LRI) for providing funding for this work, under project number ECO56.
+# Run the main notebook:
+# Open thesis_model.ipynb in Jupyter Notebook or VS Code to simulate and validate the model.
