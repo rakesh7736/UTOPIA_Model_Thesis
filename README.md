@@ -1,6 +1,7 @@
 ﻿# UTOPIA Model – Validation Using Observed Microplastic Size Distributions
 
 This repository contains the open-source **UTOPIA model** for simulating the environmental fate of microplastics, along with custom scripts and validation analyses developed as part of my Master's thesis at Stockholm University.
+link to the UTOPIA repository : https://github.com/microplastics-cluster/UTOPIA_model
 
 ---
 
@@ -20,20 +21,20 @@ The UTOPIA model was used in steady-state mode to simulate the size distribution
 
 ### 1. Model Setup
 
-- **Model**: UTOPIA (Uncertainty-assessment Tool for Organic Pollutants In Aquatic environments)
+- **Model**: UTOPIA (mUltimedia uniT world OPen-source model for mIcroplAstic)
 - **Mode**: Steady-state
 - **Execution**: Python-based scripts with parameter sweeps
 - **Compartments simulated**: Surface water, sediment, deep water, coastal water, freshwater, and soil
 
 ### 2. Parameters Explored
 
-| Parameter                   | Description                                              | Range / Options                     |
+| Parameter                   | Description                                              | Range / Options                    |
 |----------------------------|----------------------------------------------------------|-------------------------------------|
 | **Plastic Density**        | Represents different polymer types                       | 900 – 1500 kg/m³                    |
-| **Fragmentation Index (FI)**| Controls fragmentation style (0 = erosive, 1 = sequential)| 0.3 – 1.0                           |
+| **Fragmentation Index (FI)**| Controls fragmentation style (0 = erosive, 1 = sequential)| 0.3 – 1.0                         |
 | **Fragmentation Timescale**| Time for fragmentation to occur                          | 3.65 – 3650 days                    |
 | **Degradation Half-life**  | Time for plastic degradation                             | 660 – 66,000 days                   |
-| **Form Type**              | Surface characteristics of MPs                           | freeMP, heterMP, biofMP, heterBiofMP |
+|  |
 
 ### 3. Validation Datasets
 
